@@ -1,3 +1,7 @@
+trigger:
+  branches:
+    exclude:
+    - master
 pr:
   branches:
     include:
