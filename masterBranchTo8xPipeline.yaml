@@ -1,7 +1,7 @@
 pr:
   branches:
     include:
-    - master
+    - 8.x
     
 pool:
     vmImage: ubuntu-20.04
