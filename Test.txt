@@ -6,5 +6,5 @@ Test4
 Test5
 Test6
 Test7
-Test7.5
+Test7.5.0
 Test8.0.0.0
