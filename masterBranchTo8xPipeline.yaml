@@ -1,10 +1,8 @@
 trigger: none
 
 pr:
-  branches:
-    include:
-    - 8.x
-    - master
+- master
+- 8.x
     
 pool:
     vmImage: ubuntu-20.04
