@@ -26,6 +26,7 @@ jobs:
         displayName: Create artifact from variables
         inputs:
           script: |
+            echo $PRNumber
             echo "##vso[task.setvariable variable=PRNumber;]$(PRNumber)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
       # - task: PublishBuildArtifacts@1
       #   displayName: publish variables
