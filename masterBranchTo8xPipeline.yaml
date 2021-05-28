@@ -1,9 +1,9 @@
 trigger: none
 
-pr:
+# pr:
 # - master
 # - 8.x
-- 10.x
+# - 10.x
     
 pool:
     vmImage: ubuntu-20.04
