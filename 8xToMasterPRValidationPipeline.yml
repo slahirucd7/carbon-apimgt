@@ -6,12 +6,20 @@ pr:
     - 10.x
 
 variables:
-  CARBON_APIMGT_SNAPSHOT_VERSION: ''
-  CC_VERSION: 0.9.0
-  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
-  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
-  MAVEN_VERSION: 3.6.3
-  MAVEN_HOME: ''
+  C_APIMGT_SNAPSHOT_VERSION_APIM: ''
+  CC_VERSION_APIM: 0.9.0
+  MAVEN_CACHE_FOLDER_APIM: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS_APIM: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER_APIM)'
+  MAVEN_VERSION_APIM: 3.6.3
+  MAVEN_HOME_APIM: ''
+
+resources:
+  repositories:
+  - repository: choreo-product-apim 
+    type: github
+    name: wso2-enterprise/choreo-product-apim      
+    source: wso2-enterprise/choreo-product-apim
+    endpoint: slahirucd7 
 
 stages:
 - stage: ArtifactBuilding
@@ -25,10 +33,46 @@ stages:
 
     - script: |
         set -ex
-        MVN_URL="http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/$(MAVEN_VERSION)/binaries/apache-maven-$(MAVEN_VERSION)-bin.tar.gz"
+        MVN_URL="http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/$(MAVEN_VERSION_APIM)/binaries/apache-maven-$(MAVEN_VERSION_APIM)-bin.tar.gz"
         wget $MVN_URL -O $(Agent.TempDirectory)/apache-maven-bin.tar.gz
         tar -xzf $(Agent.TempDirectory)/apache-maven-bin.tar.gz -C $(Pipeline.Workspace)
-        echo '##vso[task.setvariable variable=MAVEN_HOME]$(Pipeline.Workspace)/apache-maven-$(MAVEN_VERSION)'
-        export PATH=$(MAVEN_HOME)/bin:$PATH
+        echo '##vso[task.setvariable variable=MAVEN_HOME_APIM]$(Pipeline.Workspace)/apache-maven-$(MAVEN_VERSION_APIM)'
+        export PATH=$(MAVEN_HOME_APIM)/bin:$PATH
         mvn --version
       displayName: Set Maven Version
+    
+    - checkout: choreo-product-apim
+      path: choreo-product-apim
+    - checkout: self
+      path: carbon-apimgt
+
+    - task: Cache@2
+      inputs:
+        key: 'maven | "$(Agent.OS)" | $(Agent.BuildDirectory)/**/pom.xml'
+        restoreKeys: |
+          maven | "$(Agent.OS)"
+          maven
+        path: $(MAVEN_CACHE_FOLDER_APIM)
+      displayName: Cache Maven Local Repo
+
+    - script: |
+        cd $(Agent.BuildDirectory)/carbon-apimgt
+        echo "##vso[task.setvariable variable=C_APIMGT_SNAPSHOT_VERSION_APIM]$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+      displayName: 'Obtaining Carbon-APIMGT snapshot version'
+
+    #remove this script when making the PR
+    - script: |
+        echo "C_APIMGT_SNAPSHOT_VERSION_APIM: $(C_APIMGT_SNAPSHOT_VERSION_APIM)"
+      displayName: 'C_APIMGT_SNAPSHOT_VERSION_APIM'
+
+    - task: Maven@3
+      inputs:
+        mavenPomFile: '$(Agent.BuildDirectory)/carbon-apimgt/pom.xml'
+        goals: 'clean install'
+        options: '$(MAVEN_OPTS_APIM) -Dmaven.test.skip=true'
+        mavenVersionOption: 'Path'
+        mavenDirectory: $(MAVEN_HOME_APIM)
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
