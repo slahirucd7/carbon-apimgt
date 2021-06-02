@@ -1,0 +1,34 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+    - 10.x
+
+variables:
+  CARBON_APIMGT_SNAPSHOT_VERSION: ''
+  CC_VERSION: 0.9.0
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+  MAVEN_VERSION: 3.6.3
+  MAVEN_HOME: ''
+
+stages:
+- stage: ArtifactBuilding
+  displayName: PR fetching and building artifacts
+  jobs:
+  - job: 'GettingTriggeredPRDetails'
+    displayName: Getting PullRequest Details
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+
+    - script: |
+        set -ex
+        MVN_URL="http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/$(MAVEN_VERSION)/binaries/apache-maven-$(MAVEN_VERSION)-bin.tar.gz"
+        wget $MVN_URL -O $(Agent.TempDirectory)/apache-maven-bin.tar.gz
+        tar -xzf $(Agent.TempDirectory)/apache-maven-bin.tar.gz -C $(Pipeline.Workspace)
+        echo '##vso[task.setvariable variable=MAVEN_HOME]$(Pipeline.Workspace)/apache-maven-$(MAVEN_VERSION)'
+        export PATH=$(MAVEN_HOME)/bin:$PATH
+        mvn --version
+      displayName: Set Maven Version
