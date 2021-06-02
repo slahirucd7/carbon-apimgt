@@ -13,13 +13,13 @@ variables:
   MAVEN_VERSION_APIM: 3.6.3
   MAVEN_HOME_APIM: ''
 
-resources:
-  repositories:
-  - repository: choreo-product-apim 
-    type: github
-    name: slahirucd7/choreo-product-apim      
-    source: slahirucd7/choreo-product-apim
-    endpoint: slahirucd7 
+# resources:
+#   repositories:
+#   - repository: choreo-product-apim 
+#     type: github
+#     name: slahirucd7/choreo-product-apim      
+#     source: slahirucd7/choreo-product-apim
+#     endpoint: slahirucd7 
 
 stages:
 - stage: ArtifactBuilding
@@ -41,8 +41,8 @@ stages:
         mvn --version
       displayName: Set Maven Version
     
-    - checkout: choreo-product-apim
-      path: choreo-product-apim
+    # - checkout: choreo-product-apim
+    #   path: choreo-product-apim
     - checkout: self
       path: carbon-apimgt
 
