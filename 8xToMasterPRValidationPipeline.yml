@@ -62,7 +62,7 @@ stages:
 
     #remove this script when making the PR
     - script: |
-        echo "C_APIMGT_SNAPSHOT_VERSION_APIM: $(C_APIMGT_SNAPSHOT_VERSION_APIM)"
+        echo "carbon-apimgt snapshot version: $(C_APIMGT_SNAPSHOT_VERSION_APIM)"
       displayName: 'C_APIMGT_SNAPSHOT_VERSION_APIM'
 
     - task: Maven@3
