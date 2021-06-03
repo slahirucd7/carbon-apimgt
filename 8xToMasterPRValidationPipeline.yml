@@ -13,21 +13,22 @@ variables:
   MAVEN_VERSION_APIM: 3.6.3
   MAVEN_HOME_APIM: ''
 
-# resources:
-#   repositories:
-#   - repository: choreo-product-apim 
-#     type: github
-#     name: slahirucd7/choreo-product-apim      
-#     source: slahirucd7/choreo-product-apim
-#     endpoint: slahirucd7 
+resources:
+  repositories:
+  - repository: choreo-product-apim 
+    type: github
+    name: slahirucd7/COPY_CHOREO      
+    source: slahirucd7/COPY_CHOREO
+    endpoint: slahirucd7 
 
 stages:
 - stage: ArtifactBuilding
-  displayName: PR fetching and building artifacts
+  displayName: Carbon-APIMGT Build
   jobs:
-  - job: 'GettingTriggeredPRDetails'
-    displayName: Getting PullRequest Details
+  - job: CarbonAPIMGTArtifactBuild
+    displayName: Build Carbon APIMGT with PR
     pool:
+      name: CAPIMGTAgent
       vmImage: ubuntu-latest
     steps:
 
@@ -41,8 +42,8 @@ stages:
         mvn --version
       displayName: Set Maven Version
     
-    # - checkout: choreo-product-apim
-    #   path: choreo-product-apim
+    - checkout: slahirucd7/COPY_CHOREO
+      path: COPY_CHOREO
     - checkout: self
       path: carbon-apimgt
 
@@ -76,3 +77,21 @@ stages:
         javaHomeOption: 'JDKVersion'
         jdkVersionOption: '1.8'
         jdkArchitectureOption: 'x64'
+  
+  - job: ChoreoProductApimArtifactBuilding
+    dependsOn:
+    - CarbonAPIMGTArtifactBuild
+    displayName: Choreo Product APIM build
+    pool:
+      name: CAPIMGTAgent
+      demands: Agent.Name -equals 'CAPIMGTAgent'
+    steps:
+    - checkout: COPY_CHOREO
+    - template: .azure/templates/templateName.yaml@choreo-product-apim 
+      parameters:
+        C_APIMGT_SNAPSHOT_VERSION_APIM : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
+        CC_VERSION_APIM: $(CC_VERSION_APIM)
+        MAVEN_CACHE_FOLDER_APIM: $(MAVEN_CACHE_FOLDER_APIM)
+        MAVEN_OPTS_APIM: $(MAVEN_OPTS_APIM)
+        MAVEN_VERSION_APIM: $(MAVEN_VERSION_APIM)
+        MAVEN_HOME_APIM: $(MAVEN_HOME_APIM)
