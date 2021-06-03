@@ -28,7 +28,7 @@ stages:
   - job: CarbonAPIMGTArtifactBuild
     displayName: Build Carbon APIMGT with PR
     pool:
-      name: CAPIMGTAgent
+      name: 'Hosted Agent'
       vmImage: ubuntu-latest
     steps:
 
@@ -84,7 +84,7 @@ stages:
     displayName: Choreo Product APIM build
     pool:
       name: CAPIMGTAgent
-      demands: Agent.Name -equals 'CAPIMGTAgent'
+      demands: Agent.Name -equals 'Hosted Agent'
     steps:
     # - checkout: choreo-product-apim
     # - template: .azure/templates/templateName.yaml@choreo-product-apim 
