@@ -76,12 +76,7 @@ stages:
         javaHomeOption: 'JDKVersion'
         jdkVersionOption: '1.8'
         jdkArchitectureOption: 'x64'
-  
-  - job: ChoreoProductApimArtifactBuilding
-    dependsOn:
-    - CarbonAPIMGTArtifactBuild
-    displayName: Choreo Product APIM build
-    steps:
+    
     - checkout: choreo-product-apim
     - template: .azure/templates/choreo-product-apim-pr-build.yaml@choreo-product-apim 
       parameters:
