@@ -6,12 +6,13 @@ pr:
     - 10.x
 
 variables:
-  C_APIMGT_SNAPSHOT_VERSION_APIM: ''
-  CC_VERSION_APIM: 0.9.0
-  MAVEN_CACHE_FOLDER_APIM: $(Pipeline.Workspace)/.m2/repository
-  MAVEN_OPTS_APIM: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER_APIM)'
-  MAVEN_VERSION_APIM: 3.6.3
-  MAVEN_HOME_APIM: ''
+- name: C_APIMGT_SNAPSHOT_VERSION_APIM
+  value: ''
+  # CC_VERSION_APIM: 0.9.0
+  # MAVEN_CACHE_FOLDER_APIM: $(Pipeline.Workspace)/.m2/repository
+  # MAVEN_OPTS_APIM: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER_APIM)'
+  # MAVEN_VERSION_APIM: 3.6.3
+  # MAVEN_HOME_APIM: ''
 
 resources:
   repositories:
@@ -81,11 +82,11 @@ stages:
     - template: .azure/templates/choreo-product-apim-pr-build.yaml@choreo-product-apim 
       parameters:
         C_APIMGT_SNAPSHOT_VERSION : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
-        CC_VERSION: $(CC_VERSION_APIM)
-        MAVEN_CACHE_FOLDER: $(MAVEN_CACHE_FOLDER_APIM)
-        MAVEN_OPTS: $(MAVEN_OPTS_APIM)
-        MAVEN_VERSION: $(MAVEN_VERSION_APIM)
-        MAVEN_HOME: $(MAVEN_HOME_APIM)
+        # CC_VERSION: $(CC_VERSION_APIM)
+        # MAVEN_CACHE_FOLDER: $(MAVEN_CACHE_FOLDER_APIM)
+        # MAVEN_OPTS: $(MAVEN_OPTS_APIM)
+        # MAVEN_VERSION: $(MAVEN_VERSION_APIM)
+        # MAVEN_HOME: $(MAVEN_HOME_APIM)
     
     - script: |
         echo "Test"
