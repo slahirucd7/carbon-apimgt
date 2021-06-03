@@ -26,6 +26,7 @@ stages:
   displayName: Carbon-APIMGT Build
   jobs:
   - job: CarbonAPIMGTArtifactBuild
+    timeoutInMinutes: 120
     displayName: Build Carbon APIMGT with PR
     pool:
       vmImage: ubuntu-latest
