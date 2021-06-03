@@ -43,7 +43,7 @@ stages:
       displayName: Set Maven Version
     
     - checkout: slahirucd7/COPY_CHOREO
-      path: COPY_CHOREO
+      path: choreo-product-apim
     - checkout: self
       path: carbon-apimgt
 
