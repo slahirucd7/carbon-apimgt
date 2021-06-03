@@ -42,7 +42,7 @@ stages:
         mvn --version
       displayName: Set Maven Version
     
-    - checkout: slahirucd7/COPY_CHOREO
+    - checkout: choreo-product-apim
       path: choreo-product-apim
     - checkout: self
       path: carbon-apimgt
@@ -86,15 +86,15 @@ stages:
       name: CAPIMGTAgent
       demands: Agent.Name -equals 'CAPIMGTAgent'
     steps:
-    # - checkout: COPY_CHOREO
-    # - template: .azure/templates/templateName.yaml@choreo-product-apim 
-    #   parameters:
-    #     C_APIMGT_SNAPSHOT_VERSION_APIM : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
-    #     CC_VERSION_APIM: $(CC_VERSION_APIM)
-    #     MAVEN_CACHE_FOLDER_APIM: $(MAVEN_CACHE_FOLDER_APIM)
-    #     MAVEN_OPTS_APIM: $(MAVEN_OPTS_APIM)
-    #     MAVEN_VERSION_APIM: $(MAVEN_VERSION_APIM)
-    #     MAVEN_HOME_APIM: $(MAVEN_HOME_APIM)
+    - checkout: choreo-product-apim
+    - template: .azure/templates/templateName.yaml@choreo-product-apim 
+      parameters:
+        C_APIMGT_SNAPSHOT_VERSION_APIM : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
+        CC_VERSION_APIM: $(CC_VERSION_APIM)
+        MAVEN_CACHE_FOLDER_APIM: $(MAVEN_CACHE_FOLDER_APIM)
+        MAVEN_OPTS_APIM: $(MAVEN_OPTS_APIM)
+        MAVEN_VERSION_APIM: $(MAVEN_VERSION_APIM)
+        MAVEN_HOME_APIM: $(MAVEN_HOME_APIM)
     
     - script: |
         echo "Test"
