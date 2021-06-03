@@ -28,7 +28,6 @@ stages:
   - job: CarbonAPIMGTArtifactBuild
     displayName: Build Carbon APIMGT with PR
     pool:
-      name: 'Hosted Agent'
       vmImage: ubuntu-latest
     steps:
 
