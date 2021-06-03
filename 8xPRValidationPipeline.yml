@@ -78,14 +78,14 @@ stages:
         jdkArchitectureOption: 'x64'
     
     - checkout: choreo-product-apim
-    # - template: .azure/templates/choreo-product-apim-pr-build.yaml@choreo-product-apim 
-    #   parameters:
-    #     C_APIMGT_SNAPSHOT_VERSION : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
-    #     CC_VERSION: $(CC_VERSION_APIM)
-    #     MAVEN_CACHE_FOLDER: $(MAVEN_CACHE_FOLDER_APIM)
-    #     MAVEN_OPTS: $(MAVEN_OPTS_APIM)
-    #     MAVEN_VERSION: $(MAVEN_VERSION_APIM)
-    #     MAVEN_HOME: $(MAVEN_HOME_APIM)
+    - template: .azure/templates/choreo-product-apim-pr-build.yaml@choreo-product-apim 
+      parameters:
+        C_APIMGT_SNAPSHOT_VERSION : $(C_APIMGT_SNAPSHOT_VERSION_APIM)
+        CC_VERSION: $(CC_VERSION_APIM)
+        MAVEN_CACHE_FOLDER: $(MAVEN_CACHE_FOLDER_APIM)
+        MAVEN_OPTS: $(MAVEN_OPTS_APIM)
+        MAVEN_VERSION: $(MAVEN_VERSION_APIM)
+        MAVEN_HOME: $(MAVEN_HOME_APIM)
     
     - script: |
         echo "Test"
