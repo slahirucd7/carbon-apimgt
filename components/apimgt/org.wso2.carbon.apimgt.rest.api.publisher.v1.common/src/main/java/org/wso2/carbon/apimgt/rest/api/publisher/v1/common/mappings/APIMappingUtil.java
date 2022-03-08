@@ -1266,10 +1266,10 @@ public class APIMappingUtil {
         // selected gateway type.
         // Solace gateway environment will receive gatewayType value as NOT_SELECTED.
         dto.setGatewayType(APIDTO.GatewayTypeEnum.NOT_SELECTED);
-        if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_CHOREO_CONNECT_GATEWAY)) {
+        if (gatewayVendor.equalsIgnoreCase(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT.value())) {
             dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT);
             dto.setGatewayVendor(APIConstants.WSO2_GATEWAY_ENVIRONMENT);
-        } else if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_SYNAPSE_GATEWAY)) {
+        } else if (gatewayVendor.equalsIgnoreCase(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE.value())) {
             dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE);
         }
 
