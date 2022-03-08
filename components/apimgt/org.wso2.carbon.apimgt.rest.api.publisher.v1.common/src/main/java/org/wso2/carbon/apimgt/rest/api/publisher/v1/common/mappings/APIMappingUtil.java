@@ -1269,7 +1269,7 @@ public class APIMappingUtil {
         if (gatewayVendor.equalsIgnoreCase(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT.value())) {
             dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT);
             dto.setGatewayVendor(APIConstants.WSO2_GATEWAY_ENVIRONMENT);
-        } else if (gatewayVendor.equalsIgnoreCase(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE.value())) {
+        } else if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_GATEWAY_ENVIRONMENT)) {
             dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE);
         }
 
