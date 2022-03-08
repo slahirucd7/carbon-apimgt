@@ -1259,7 +1259,20 @@ public class APIMappingUtil {
             dto.setAudience(AudienceEnum.valueOf(model.getAudience()));
         }
 
-        dto.setGatewayVendor(StringUtils.toRootLowerCase(model.getGatewayVendor()));
+        String gatewayVendor = StringUtils.toRootLowerCase(model.getGatewayVendor());
+        dto.setGatewayVendor(gatewayVendor);
+
+        // Gateway type is used to render API policies UI for a given API considering
+        // selected gateway type.
+        // Solace gateway environment will receive gatewayType value as NOT_SELECTED.
+        dto.setGatewayType(APIDTO.GatewayTypeEnum.NOT_SELECTED);
+        if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_CHOREO_CONNECT_GATEWAY)) {
+            dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT);
+            dto.setGatewayVendor(APIConstants.WSO2_GATEWAY_ENVIRONMENT);
+        } else if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_SYNAPSE_GATEWAY)) {
+            dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE);
+        }
+
         if (model.getAsyncTransportProtocols() != null) {
             dto.setAsyncTransportProtocols(Arrays.asList(model.getAsyncTransportProtocols().split(",")));
         }
