@@ -8433,17 +8433,6 @@ components:
         gatewayVendor:
           type: string
           example: wso2
-        gatewayType:
-          title: Field to identify gateway type.
-          type: string
-          description: The gateway type selected for the API. Used in gateway policy handling. Accepts one of the
-            following. WSO2_SYNAPSE, WSO2_CHOREO_CONNECT, NOT_SELECTED.
-          example: WSO2_SYNAPSE
-          default: NOT_SELECTED
-          enum:
-            - WSO2_SYNAPSE
-            - WSO2_CHOREO_CONNECT
-            - NOT_SELECTED
         advertiseOnly:
           type: boolean
           example: true
@@ -8945,14 +8934,9 @@ components:
         gatewayType:
           title: Field to identify gateway type.
           type: string
-          description: The gateway type selected for the API. Used in gateway policy handling. Accepts one of the
-            following. WSO2_SYNAPSE, WSO2_CHOREO_CONNECT, NOT_SELECTED.
-          example: WSO2_SYNAPSE
-          default: NOT_SELECTED
-          enum:
-            - WSO2_SYNAPSE
-            - WSO2_CHOREO_CONNECT
-            - NOT_SELECTED
+          description: The gateway type selected for the API policies. Accepts one of the
+            following. wso2/synapse, wso2/choreo-connect.
+          example: wso2/synapse
         asyncTransportProtocols:
           type: array
           description: |
@@ -9158,17 +9142,6 @@ components:
         gatewayVendor:
           type: string
           example: wso2
-        gatewayType:
-          title: Field to identify gateway type.
-          type: string
-          description: The gateway type selected for the API. Used in gateway policy handling. Accepts one of the
-            following. WSO2_SYNAPSE, WSO2_CHOREO_CONNECT, NOT_SELECTED.
-          example: WSO2_SYNAPSE
-          default: NOT_SELECTED
-          enum:
-            - WSO2_SYNAPSE
-            - WSO2_CHOREO_CONNECT
-            - NOT_SELECTED
     APIProduct:
       title: API Product object
       required:
@@ -9383,17 +9356,6 @@ components:
           type: string
           example:
             wso2
-        gatewayType:
-          title: Field to identify gateway type.
-          type: string
-          description: The gateway type selected for the API. Used in gateway policy handling. Accepts one of the
-            following. WSO2_SYNAPSE, WSO2_CHOREO_CONNECT, NOT_SELECTED.
-          example: WSO2_SYNAPSE
-          default: NOT_SELECTED
-          enum:
-            - WSO2_SYNAPSE
-            - WSO2_CHOREO_CONNECT
-            - NOT_SELECTED
         apis:
           type: array
           description: |
@@ -11707,17 +11669,6 @@ components:
             gatewayVendor:
               type: string
               example: wso2
-            gatewayType:
-              title: Field to identify gateway type.
-              type: string
-              description: The gateway type selected for the API. Used in gateway policy handling. Accepts one of the
-                following. WSO2_SYNAPSE, WSO2_CHOREO_CONNECT, NOT_SELECTED.
-              example: WSO2_SYNAPSE
-              default: NOT_SELECTED
-              enum:
-                - WSO2_SYNAPSE
-                - WSO2_CHOREO_CONNECT
-                - NOT_SELECTED
             asyncTransportProtocols:
               type: array
               description: contains available transports for an async API

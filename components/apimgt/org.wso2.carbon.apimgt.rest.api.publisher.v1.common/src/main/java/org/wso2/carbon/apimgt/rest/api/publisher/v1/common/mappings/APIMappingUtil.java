@@ -1261,17 +1261,7 @@ public class APIMappingUtil {
 
         String gatewayVendor = StringUtils.toRootLowerCase(model.getGatewayVendor());
         dto.setGatewayVendor(gatewayVendor);
-
-        // Gateway type is used to render API policies UI for a given API considering
-        // selected gateway type.
-        // Solace gateway environment will receive gatewayType value as NOT_SELECTED.
-        dto.setGatewayType(APIDTO.GatewayTypeEnum.NOT_SELECTED);
-        if (gatewayVendor.equalsIgnoreCase(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT.value())) {
-            dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_CHOREO_CONNECT);
-            dto.setGatewayVendor(APIConstants.WSO2_GATEWAY_ENVIRONMENT);
-        } else if (gatewayVendor.equalsIgnoreCase(APIConstants.WSO2_GATEWAY_ENVIRONMENT)) {
-            dto.setGatewayType(APIDTO.GatewayTypeEnum.WSO2_SYNAPSE);
-        }
+        dto.setGatewayType(model.getGatewayType());
 
         if (model.getAsyncTransportProtocols() != null) {
             dto.setAsyncTransportProtocols(Arrays.asList(model.getAsyncTransportProtocols().split(",")));
